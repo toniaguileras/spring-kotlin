@@ -1,12 +1,17 @@
 package com.adevinta.toniaguilera.service
 
+import com.adevinta.toniaguilera.model.User
+import com.adevinta.toniaguilera.repository.UserRepository
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.InjectMocks
-import org.mockito.MockitoAnnotations
+import org.mockito.*
+
 
 class UserServiceTest {
+
+    @Mock
+    lateinit var userRepository: UserRepository
 
     @InjectMocks
     private lateinit var userService: UserService
@@ -19,7 +24,8 @@ class UserServiceTest {
 
     @Test
     fun `should say hello`() {
-        val actual = userService.sayHello()
+        Mockito.`when`(userRepository.findByName(ArgumentMatchers.anyString())).thenReturn(User(null, "toni aguilera"))
+        val actual = userService.sayHello("toni aguilera")
         Assertions.assertThat(actual).isEqualTo("hello, nice to meet you toni aguilera")
     }
 }
