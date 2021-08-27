@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 class HelloController {
 
     @Autowired
-    private lateinit var userService: UserService;
+    lateinit var userService: UserService;
 
     @GetMapping("/{name}")
     fun hello(@PathVariable name: String): String {

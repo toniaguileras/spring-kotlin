@@ -1,11 +1,14 @@
 package com.adevinta.toniaguilera.service
 
 import com.adevinta.toniaguilera.model.User
+import com.adevinta.toniaguilera.model.UserDTO
 import com.adevinta.toniaguilera.repository.UserRepository
 import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.*
+import org.mockito.Mockito.*
 
 
 class UserServiceTest {
@@ -24,8 +27,19 @@ class UserServiceTest {
 
     @Test
     fun `should say hello`() {
-        Mockito.`when`(userRepository.findByName(ArgumentMatchers.anyString())).thenReturn(User(null, "toni aguilera"))
+        `when`(userRepository.findByName(anyString())).thenReturn(User(null, "toni aguilera"))
         val actual = userService.sayHello("toni aguilera")
-        Assertions.assertThat(actual).isEqualTo("hello, nice to meet you toni aguilera")
+        assertThat(actual).isEqualTo("hello, nice to meet you toni aguilera")
+    }
+
+    @Test
+    internal fun `should create a user`() {
+        val userDTO: UserDTO = UserDTO("Alejandro")
+
+        `when`(userRepository.save(any(User::class.java))).thenReturn(any(User::class.java));
+        `when`(userService.createUser(any(User::class.java))).thenReturn(userDTO);
+
+        assertThat(userDTO.name).isEqualTo("Alejandro")
+
     }
 }

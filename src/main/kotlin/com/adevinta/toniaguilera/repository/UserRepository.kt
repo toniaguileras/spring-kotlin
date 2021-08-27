@@ -10,4 +10,5 @@ interface UserRepository : CrudRepository<User, Int> {
     fun findByName(name: String): User
 
 
+
 }
